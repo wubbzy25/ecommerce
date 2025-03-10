@@ -65,10 +65,6 @@ Make sure you have the following installed:
 
 
 
-https://github.com/user-attachments/assets/fa832c95-9589-41ae-a7bc-1b517ea533e0
-
-
-
 ## 🤝 Contributing
 
 Feel free to fork this project and submit pull requests!
