@@ -63,7 +63,11 @@ Make sure you have the following installed:
 
 ## 🎥 Video Demo
 
-[Click here to watch a demo of the application](#)
+
+
+https://github.com/user-attachments/assets/fa832c95-9589-41ae-a7bc-1b517ea533e0
+
+
 
 ## 🤝 Contributing
 
