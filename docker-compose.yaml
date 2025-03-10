@@ -1,0 +1,159 @@
+version: "3.8"
+services:
+  config-microservice:
+    build:
+      context: ./backend/config
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    networks:
+      - backend
+    healthcheck:
+      test:
+        ["CMD-SHELL", "curl -f http://localhost:8888/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  eureka-microservice:
+    build:
+      context: ./backend/eureka
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - backend
+    depends_on:
+      config-microservice:
+        condition: service_healthy
+    healthcheck:
+      test:
+        ["CMD-SHELL", "curl -f http://localhost:8761/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  auth-microservice:
+    build:
+      context: ./backend/auth
+      dockerfile: Dockerfile
+    ports:
+      - "8060:8060"
+    networks:
+      - backend
+    depends_on:
+      eureka-microservice:
+        condition: service_healthy
+    healthcheck:
+      test:
+        ["CMD-SHELL", "curl -f http://localhost:8060/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  catalog-microservice:
+    build:
+      context: ./backend/catalog
+      dockerfile: Dockerfile
+    ports:
+      - "8010:8010"
+    networks:
+      - backend
+    depends_on:
+      eureka-microservice:
+        condition: service_healthy
+    healthcheck:
+      test:
+        ["CMD-SHELL", "curl -f http://localhost:8010/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  payments-microservice:
+    build:
+      context: ./backend/payments
+      dockerfile: Dockerfile
+    ports:
+      - "8040:8040"
+    networks:
+      - backend
+    depends_on:
+      eureka-microservice:
+        condition: service_healthy
+    healthcheck:
+      test:
+        ["CMD-SHELL", "curl -f http://localhost:8040/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  reviews-microservice:
+    build:
+      context: ./backend/reviews
+      dockerfile: Dockerfile
+    ports:
+      - "8070:8070"
+    networks:
+      - backend
+    depends_on:
+      eureka-microservice:
+        condition: service_healthy
+    healthcheck:
+      test:
+        ["CMD-SHELL", "curl -f http://localhost:8070/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  shopping-cart-microservice:
+    build:
+      context: ./backend/shopping-cart
+      dockerfile: Dockerfile
+    ports:
+      - "8050:8050"
+    networks:
+      - backend
+    depends_on:
+      eureka-microservice:
+        condition: service_healthy
+    healthcheck:
+      test:
+        ["CMD-SHELL", "curl -f http://localhost:8050/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  gateway-microservice:
+    build:
+      context: ./backend/gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+    depends_on:
+      auth-microservice:
+        condition: service_healthy
+      catalog-microservice:
+        condition: service_healthy
+      payments-microservice:
+        condition: service_healthy
+      reviews-microservice:
+        condition: service_healthy
+      shopping-cart-microservice:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./Front-End
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - frontend
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge

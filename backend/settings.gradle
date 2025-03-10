@@ -1,0 +1,9 @@
+rootProject.name = 'backend'
+include('config')
+include('eureka')
+include('gateway')
+include('auth')
+include('catalog')
+include('reviews')
+include('shopping-cart')
+include('payments')
