@@ -59,15 +59,6 @@ Make sure you have the following installed:
 
 ## 🎥 Video Demo
 
-<<<<<<< HEAD
-=======
-
-
-## 🤝 Contributing
-
-Feel free to fork this project and submit pull requests!
-
->>>>>>> d8ecc548a673b9bac4a0eca0171ba3d8ad231cbd
 ## 📄 License
 
 This project is licensed under the MIT License.
