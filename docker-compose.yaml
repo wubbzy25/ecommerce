@@ -13,7 +13,7 @@ services:
         ["CMD-SHELL", "curl -f http://localhost:8888/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 5
+      retries: 50
 
   eureka-microservice:
     build:
@@ -31,7 +31,7 @@ services:
         ["CMD-SHELL", "curl -f http://localhost:8761/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 5
+      retries: 50
 
   auth-microservice:
     build:
@@ -49,7 +49,7 @@ services:
         ["CMD-SHELL", "curl -f http://localhost:8060/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 10
+      retries: 50
 
   catalog-microservice:
     build:
@@ -67,7 +67,7 @@ services:
         ["CMD-SHELL", "curl -f http://localhost:8010/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 10
+      retries: 50
 
   payments-microservice:
     build:
@@ -85,7 +85,7 @@ services:
         ["CMD-SHELL", "curl -f http://localhost:8040/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 10
+      retries: 50
 
   reviews-microservice:
     build:
@@ -103,7 +103,7 @@ services:
         ["CMD-SHELL", "curl -f http://localhost:8070/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 10
+      retries: 50
 
   shopping-cart-microservice:
     build:
@@ -121,7 +121,7 @@ services:
         ["CMD-SHELL", "curl -f http://localhost:8050/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 10
+      retries: 50
 
   gateway-microservice:
     build:
@@ -132,15 +132,9 @@ services:
     networks:
       - backend
     depends_on:
-      auth-microservice:
+      eureka-microservice:
         condition: service_healthy
-      catalog-microservice:
-        condition: service_healthy
-      payments-microservice:
-        condition: service_healthy
-      reviews-microservice:
-        condition: service_healthy
-      shopping-cart-microservice:
+      config-microservice:
         condition: service_healthy
 
   frontend:
@@ -151,7 +145,20 @@ services:
       - "4200:4200"
     networks:
       - frontend
-
+  postgres-db:
+    image: postgres:17
+    container_name: ecommerce-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=ecommerce
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - backend
 networks:
   backend:
     driver: bridge

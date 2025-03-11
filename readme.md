@@ -7,7 +7,6 @@ This is a fully functional e-commerce application built using a microservices ar
 - User authentication and authorization
 - Product catalog management
 - Shopping cart functionality
-- Order processing and tracking
 - Payment integration
 - API Gateway for service routing
 
@@ -28,8 +27,6 @@ This is a fully functional e-commerce application built using a microservices ar
 ### DevOps & Infrastructure:
 
 - **Docker** - Containerization of services
-- **Kubernetes (Optional)** - Orchestrating microservices deployment
-- **Cloud Services (Optional)** - AWS/GCP for hosting
 
 ## 🚀 Getting Started
 
@@ -43,8 +40,8 @@ Make sure you have the following installed:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-repo/ecommerce-microservices.git
-   cd ecommerce-microservices
+   git clone https://github.com/wubbzy25/ecommerce.git
+   cd ecommerce
    ```
 2. Build and start the services using Docker Compose:
    ```bash
@@ -52,9 +49,8 @@ Make sure you have the following installed:
    ```
 3. Access the application:
 
-   - Backend API: `http://localhost:8080`
+   - Backend API: `http://localhost:8000`
    - Frontend UI: `http://localhost:4200`
-   - PostgreSQL: `localhost:5432`
 
 4. To stop the services:
    ```bash
@@ -62,12 +58,6 @@ Make sure you have the following installed:
    ```
 
 ## 🎥 Video Demo
-
-[Click here to watch a demo of the application](#)
-
-## 🤝 Contributing
-
-Feel free to fork this project and submit pull requests!
 
 ## 📄 License
 
