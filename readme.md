@@ -59,6 +59,8 @@ Make sure you have the following installed:
 
 ## 🎥 Video Demo
 
+https://github.com/user-attachments/assets/5b0889f1-37df-4994-a0bb-61383d3e694f
+
 ## 📄 License
 
 This project is licensed under the MIT License.
